@@ -61,7 +61,6 @@ class _FuelEntrySubmissionFormState extends State<FuelEntrySubmissionForm> {
       );
       setState(() {
         _fuelentries.add(entries);
-
         _billNo.clear();
         _vehicleNumber.clear();
         _vehicleType.clear();
