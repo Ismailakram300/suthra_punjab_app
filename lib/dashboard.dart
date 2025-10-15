@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:figma_practice_project/complaint_form.dart';
 import 'package:figma_practice_project/complians_screen.dart';
+import 'package:figma_practice_project/constants/custom_container.dart';
 import 'package:figma_practice_project/location_service.dart';
 import 'package:figma_practice_project/models/user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -12,6 +13,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart' hide LocationAccuracy;
 
+import 'constants/appbar.dart';
 import 'fuel_entry_submission_form.dart';
 
 class DashboardScreen extends StatefulWidget {
@@ -34,9 +36,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
     const R = 6371000; // Earth radius in meters
     final dLat = _deg2rad(lat2 - lat1);
     final dLon = _deg2rad(lon2 - lon1);
-    final a = sin(dLat / 2) * sin(dLat / 2) +
-        cos(_deg2rad(lat1)) * cos(_deg2rad(lat2)) *
-            sin(dLon / 2) * sin(dLon / 2);
+    final a =
+        sin(dLat / 2) * sin(dLat / 2) +
+        cos(_deg2rad(lat1)) *
+            cos(_deg2rad(lat2)) *
+            sin(dLon / 2) *
+            sin(dLon / 2);
     final c = 2 * atan2(sqrt(a), sqrt(1 - a));
     return R * c;
   }
@@ -73,13 +78,19 @@ class _DashboardScreenState extends State<DashboardScreen> {
         BitmapDescriptor markerColor;
         switch (item["status"]) {
           case "inprocess":
-            markerColor = BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueYellow);
+            markerColor = BitmapDescriptor.defaultMarkerWithHue(
+              BitmapDescriptor.hueYellow,
+            );
             break;
           case "resolved":
-            markerColor = BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueGreen);
+            markerColor = BitmapDescriptor.defaultMarkerWithHue(
+              BitmapDescriptor.hueGreen,
+            );
             break;
           default:
-            markerColor = BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed);
+            markerColor = BitmapDescriptor.defaultMarkerWithHue(
+              BitmapDescriptor.hueRed,
+            );
         }
 
         markers.add(
@@ -168,9 +179,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
         _currentLatLng = LatLng(position.latitude, position.longitude);
       });
 
-      _mapController?.animateCamera(
-        CameraUpdate.newLatLng(_currentLatLng!),
-      );
+      _mapController?.animateCamera(CameraUpdate.newLatLng(_currentLatLng!));
 
       await loadComplaintsOnMap(); // ✅ Load complaints after current location ready
     } catch (e) {
@@ -196,76 +205,154 @@ class _DashboardScreenState extends State<DashboardScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.lightBlueAccent,
-        title: const Text("Dashboard"),
-      ),
+      appBar: CustomContainerAppBar(title: 'Dashboard'),
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(15.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              // 🔹 Map
-              Container(
-                decoration: BoxDecoration(
-                  border: Border.all(width: 1, color: Colors.black),
-                  borderRadius: BorderRadius.circular(13),
-                ),
-                width: 400,
-                height: 300,
-                child: _currentLatLng == null
-                    ? const Center(child: CircularProgressIndicator())
-                    : ClipRRect(
-                  borderRadius: BorderRadius.circular(12),
-                  child: GoogleMap(
-                    initialCameraPosition: CameraPosition(
-                      target: _currentLatLng!,
-                      zoom: 15,
-                    ),
-                    onMapCreated: (controller) {
-                      _mapController = controller;
-                    },
-                    myLocationEnabled: true,
-                    markers: _markers,
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(width: 1, color: Colors.black),
+                    borderRadius: BorderRadius.circular(13),
+                  ),
+                  width: 400,
+                  height: 140,
+                  child: Row(
+                    children: [
+                      CustomCard(title: "Hello"),
+                      CustomCard(title: "Hello"),
+                      CustomCard(title: "Hello"),
+                      // Expanded(
+                      //   child: Padding(
+                      //     padding: const EdgeInsets.all(8.0),
+                      //     child: Container(
+                      //       height: 140,
+                      //       decoration: BoxDecoration(
+                      //         boxShadow: [
+                      //           BoxShadow(
+                      //             color: Colors.black.withOpacity(0.3), // shadow color
+                      //             blurRadius: 8, // how soft the shadow is
+                      //             spreadRadius: 2, // how wide the shadow spreads
+                      //             offset: const Offset(2, 4), // (x, y) — move right & down
+                      //           ),
+                      //         ],
+                      //         color: Colors.yellow.shade400,
+                      //         border: Border.all(
+                      //             width: 1, color: Colors.black),
+                      //         borderRadius: BorderRadius.circular(13),
+                      //       ),
+                      //
+                      //       child: Text("Conatiner !"),
+                      //     ),
+                      //   ),
+                      // ),
+                      //
+                      //
+                      //    Expanded(
+                      //     child: Padding(
+                      //       padding: const EdgeInsets.all(8.0),
+                      //       child: Container(
+                      //         height: 160,
+                      //         decoration: BoxDecoration(
+                      //           border: Border.all(width: 1, color: Colors.black),
+                      //           borderRadius: BorderRadius.circular(13),
+                      //         ),
+                      //         child: Text("Conatiner !"),
+                      //       ),
+                      //     ),
+                      //   ),
+                      //
+                      // Expanded(
+                      //   child: Padding(
+                      //     padding: const EdgeInsets.all(8.0),
+                      //     child: Container(
+                      //       height: 160,
+                      //       decoration: BoxDecoration(
+                      //         border: Border.all(width: 1, color: Colors.black),
+                      //         borderRadius: BorderRadius.circular(13),
+                      //       ),
+                      //
+                      //       child: Text("Conatiner !"),
+                      //     ),
+                      //   ),
+                      // ),
+                    ],
                   ),
                 ),
-              ),
-              const SizedBox(height: 20),
-              const Text(
-                "📍 All complaints displayed with distance & auto-update every 5 sec ⏱️",
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(height: 20),
-              _buildButton(
-                context,
-                icon: Icons.list,
-                text: "View Complaints",
-                color: Colors.cyan.shade50,
-                onTap: () => Navigator.push(
-                    context, MaterialPageRoute(builder: (_) => ComplaintsScreen())),
-              ),
-              const SizedBox(height: 20),
-              _buildButton(
-                context,
-                icon: Icons.add_circle,
-                text: "Add Fueling Reports",
-                color: Colors.cyan.shade100,
-                onTap: () => Navigator.push(
-                    context, MaterialPageRoute(builder: (_) => FuelEntrySubmissionForm())),
-              ),
-            ],
+                const SizedBox(height: 20),
+
+                // 🔹 Map
+                Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(width: 1, color: Colors.black),
+                    borderRadius: BorderRadius.circular(13),
+                  ),
+                  width: 400,
+                  height: 300,
+                  child: _currentLatLng == null
+                      ? const Center(child: CircularProgressIndicator())
+                      : ClipRRect(
+                          borderRadius: BorderRadius.circular(12),
+                          child: GoogleMap(
+                            initialCameraPosition: CameraPosition(
+                              target: _currentLatLng!,
+                              zoom: 15,
+                            ),
+                            onMapCreated: (controller) {
+                              _mapController = controller;
+                            },
+                            myLocationEnabled: true,
+                            markers: _markers,
+                          ),
+                        ),
+                ),
+                const SizedBox(height: 20),
+                const Text(
+                  "📍 All complaints displayed with distance & auto-update every 5 sec ⏱️",
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 20),
+                _buildButton(
+                  context,
+                  icon: Icons.list,
+                  text: "View Complaints",
+                  color: Colors.cyan.shade50,
+                  onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (_) => ComplaintsScreen()),
+                  ),
+                ),
+                const SizedBox(height: 20),
+                _buildButton(
+                  context,
+                  icon: Icons.add_circle,
+                  text: "Add Fueling Reports",
+                  color: Colors.cyan.shade100,
+                  onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => FuelEntrySubmissionForm(),
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
     );
   }
 
-  Widget _buildButton(BuildContext context,
-      {required IconData icon,
-        required String text,
-        required Color color,
-        required VoidCallback onTap}) {
+  Widget _buildButton(
+    BuildContext context, {
+    required IconData icon,
+    required String text,
+    required Color color,
+    required VoidCallback onTap,
+  }) {
     return GestureDetector(
       onTap: onTap,
       child: DottedBorder(

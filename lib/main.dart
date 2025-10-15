@@ -13,6 +13,7 @@ import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'constants/colors.dart';
 import 'firebase_options.dart';
 import 'location_service.dart';
 import 'package:flutter/services.dart';
@@ -94,9 +95,28 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Complaint Tracker',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+       theme: ThemeData(
+      primaryColor: AppColors.primary,
+      scaffoldBackgroundColor: AppColors.background,
+      colorScheme: ColorScheme.fromSeed(
+        seedColor: AppColors.primary,
+        primary: AppColors.primary,
+        secondary: AppColors.secondary,
+        background: AppColors.background,
+        error: AppColors.error,
       ),
+      textTheme: const TextTheme(
+
+        bodyLarge: TextStyle(color: AppColors.textDark),
+        bodyMedium: TextStyle(color: AppColors.textDark),
+        titleLarge: TextStyle(fontWeight: FontWeight.bold),
+      ),
+      appBarTheme: AppBarTheme(
+        backgroundColor: AppColors.primary,
+        foregroundColor: AppColors.textLight,
+      ),
+         iconTheme: IconThemeData(color: Colors.white, size: 30, ),
+    ),
       home: isLoggedIn && user != null
           ? DashboardScreen(user: user!)
           : const LoginScreen(),
