@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "791805299635",
+    "project_id": "flutter-task-b7e36",
+    "storage_bucket": "flutter-task-b7e36.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:791805299635:android:37cdee586e1a1fe6fc59c6",
+        "android_client_info": {
+          "package_name": "com.example.figma_practice_project"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "791805299635-v8f9p0cnndgj0v6lroumjefb7tq13e26.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD844xvJMMha8F8kJ-IERjjaXOlVzZ9U74"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "791805299635-v8f9p0cnndgj0v6lroumjefb7tq13e26.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
