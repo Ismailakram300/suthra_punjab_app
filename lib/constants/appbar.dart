@@ -13,7 +13,7 @@ class CustomContainerAppBar extends StatelessWidget
     required this.title,
     this.showBackButton = true,
     this.actions,
-    this.height = 120, // ✅ You can increase/decrease height
+    this.height = 100, // ✅ You can increase/decrease height
   });
 
   @override
