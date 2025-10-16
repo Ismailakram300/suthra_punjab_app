@@ -29,6 +29,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
   LatLng? _currentLatLng;
   Timer? _timer;
   Set<Marker> _markers = {};
+  int _total = 0;
+  int _pending = 0;
+  int _inprocess = 0;
+  int _resolved = 0;
+
 
   double _deg2rad(double deg) => deg * (pi / 180);
 
@@ -48,6 +53,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   /// 🔹 Fetch all complaints and add markers to map
   Future<void> loadComplaintsOnMap() async {
+
     final ref = FirebaseDatabase.instance.ref("complains");
     final snapshot = await ref.get();
 
@@ -55,6 +61,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
     final data = Map<String, dynamic>.from(snapshot.value as Map);
     Set<Marker> markers = {};
+    int total = 0;
+    int pending = 0;
+    int inprocess = 0;
+    int resolved = 0;
 
     data.forEach((key, value) {
       try {
@@ -73,6 +83,21 @@ class _DashboardScreenState extends State<DashboardScreen> {
           lat,
           lon,
         );
+
+        //Count
+        total++;
+        switch (item["status"]) {
+          case "pending":
+            pending++;
+            break;
+          case "inprocess":
+            inprocess++;
+            break;
+          case "resolved":
+            resolved++;
+            break;
+        }
+
 
         // 🎨 Marker color by status
         BitmapDescriptor markerColor;
@@ -108,8 +133,13 @@ class _DashboardScreenState extends State<DashboardScreen> {
         debugPrint("❌ Error loading complaint marker: $e");
       }
     });
-
-    setState(() => _markers = markers);
+    setState(() {
+      _markers = markers;
+      _total = total ;
+      _pending = pending;
+      _inprocess = inprocess;
+      _resolved = resolved;
+    });
   }
 
   Future<void> checkNearbyComplaints() async {
@@ -211,74 +241,143 @@ class _DashboardScreenState extends State<DashboardScreen> {
           padding: const EdgeInsets.all(15.0),
           child: SingleChildScrollView(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Container(
                   decoration: BoxDecoration(
+                    image: DecorationImage(
+                      fit: BoxFit.cover,
+                      image: AssetImage(
+                        "assets/images/complainsDashboard/complainsDashboard.png",
+                      ),
+                    ),
                     border: Border.all(width: 1, color: Colors.black),
-                    borderRadius: BorderRadius.circular(13),
+                    borderRadius: BorderRadius.circular(18),
                   ),
                   width: 400,
                   height: 140,
-                  child: Row(
+                  child: Column(
                     children: [
-                      CustomCard(title: "Hello"),
-                      CustomCard(title: "Hello"),
-                      CustomCard(title: "Hello"),
-                      // Expanded(
-                      //   child: Padding(
-                      //     padding: const EdgeInsets.all(8.0),
-                      //     child: Container(
-                      //       height: 140,
-                      //       decoration: BoxDecoration(
-                      //         boxShadow: [
-                      //           BoxShadow(
-                      //             color: Colors.black.withOpacity(0.3), // shadow color
-                      //             blurRadius: 8, // how soft the shadow is
-                      //             spreadRadius: 2, // how wide the shadow spreads
-                      //             offset: const Offset(2, 4), // (x, y) — move right & down
-                      //           ),
-                      //         ],
-                      //         color: Colors.yellow.shade400,
-                      //         border: Border.all(
-                      //             width: 1, color: Colors.black),
-                      //         borderRadius: BorderRadius.circular(13),
-                      //       ),
-                      //
-                      //       child: Text("Conatiner !"),
-                      //     ),
-                      //   ),
-                      // ),
-                      //
-                      //
-                      //    Expanded(
-                      //     child: Padding(
-                      //       padding: const EdgeInsets.all(8.0),
-                      //       child: Container(
-                      //         height: 160,
-                      //         decoration: BoxDecoration(
-                      //           border: Border.all(width: 1, color: Colors.black),
-                      //           borderRadius: BorderRadius.circular(13),
-                      //         ),
-                      //         child: Text("Conatiner !"),
-                      //       ),
-                      //     ),
-                      //   ),
-                      //
-                      // Expanded(
-                      //   child: Padding(
-                      //     padding: const EdgeInsets.all(8.0),
-                      //     child: Container(
-                      //       height: 160,
-                      //       decoration: BoxDecoration(
-                      //         border: Border.all(width: 1, color: Colors.black),
-                      //         borderRadius: BorderRadius.circular(13),
-                      //       ),
-                      //
-                      //       child: Text("Conatiner !"),
-                      //     ),
-                      //   ),
-                      // ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(28.0),
+                            child:RichText(text: TextSpan(
+                              text:   'Complains ($_total)',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 25,
+                                fontWeight: FontWeight.bold,
+
+                              ),
+                              // children:[
+                              //   TextSpan(
+                              //     text: '\nPending ',
+                              //     style: TextStyle(
+                              //       color: Colors.blue,
+                              //       fontSize: 17,
+                              //       fontWeight: FontWeight.bold,
+                              //     ),
+                              //   ),   TextSpan(
+                              //     text: ': $_total',
+                              //     style: TextStyle(
+                              //       color: Colors.blue,
+                              //       fontSize: 16,
+                              //       fontWeight: FontWeight.bold,
+                              //     ),
+                              //   ),
+                              // ]
+                            ))
+                          ),
+
+                          // CustomCard(title: "Hello"),
+                          // CustomCard(title: "Hello"),
+                          // CustomCard(title: "Hello"),
+                          // Expanded(
+                          //   child: Padding(
+                          //     padding: const EdgeInsets.all(8.0),
+                          //     child: Container(
+                          //       height: 140,
+                          //       decoration: BoxDecoration(
+                          //         boxShadow: [
+                          //           BoxShadow(
+                          //             color: Colors.black.withOpacity(0.3), // shadow color
+                          //             blurRadius: 8, // how soft the shadow is
+                          //             spreadRadius: 2, // how wide the shadow spreads
+                          //             offset: const Offset(2, 4), // (x, y) — move right & down
+                          //           ),
+                          //         ],
+                          //         color: Colors.yellow.shade400,
+                          //         border: Border.all(
+                          //             width: 1, color: Colors.black),
+                          //         borderRadius: BorderRadius.circular(13),
+                          //       ),
+                          //
+                          //       child: Text("Conatiner !"),
+                          //     ),
+                          //   ),
+                          // ),
+                          //
+                          //
+                          //    Expanded(
+                          //     child: Padding(
+                          //       padding: const EdgeInsets.all(8.0),
+                          //       child: Container(
+                          //         height: 160,
+                          //         decoration: BoxDecoration(
+                          //           border: Border.all(width: 1, color: Colors.black),
+                          //           borderRadius: BorderRadius.circular(13),
+                          //         ),
+                          //         child: Text("Conatiner !"),
+                          //       ),
+                          //     ),
+                          //   ),
+                          //
+                          // Expanded(
+                          //   child: Padding(
+                          //     padding: const EdgeInsets.all(8.0),
+                          //     child: Container(
+                          //       height: 160,
+                          //       decoration: BoxDecoration(
+                          //         border: Border.all(width: 1, color: Colors.black),
+                          //         borderRadius: BorderRadius.circular(13),
+                          //       ),
+                          //
+                          //       child: Text("Conatiner !"),
+                          //     ),
+                          //   ),
+                          // ),
+                        ],
+                      ),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(0,0,10,0),
+                            child: Container(
+                              width: 120,
+                              height: 39,
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(14)
+                              ),
+                              child: Center(child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text("Check",style: TextStyle(
+                                      fontSize: 17,fontWeight: FontWeight.bold),
+                                  ),
+                                  Icon(Icons.arrow_forward_ios_rounded,color: Colors.black,size: 18,)
+                                ],
+                              )),
+                            ),
+                          )
+
+                        ],
+                      )
                     ],
                   ),
                 ),

@@ -13,7 +13,7 @@ class CustomContainerAppBar extends StatelessWidget
     required this.title,
     this.showBackButton = true,
     this.actions,
-    this.height = 100, // ✅ You can increase/decrease height
+    this.height = 150, // ✅ You can increase/decrease height
   });
 
   @override
@@ -40,34 +40,22 @@ class CustomContainerAppBar extends StatelessWidget
         ],
       ),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
-      //      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            // crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Icon(Icons.menu, size: 35),
+              Icon(Icons.menu, size: 30),
               SizedBox(width: 25),
-              Icon(Icons.location_history, size: 27),
-              SizedBox(width: 5),
-
-              Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Current tehsil",
-                    style: TextStyle(color: Colors.white, fontSize: 17,fontWeight: FontWeight.bold),
-                  ),
-                  Text(
-                    "Chakwal",
-                    style: TextStyle(fontSize: 14, color: Colors.white),
-                  ),
-                ],
-              ),
-              SizedBox(width: 55),
+              Icon(Icons.person_off, size: 27),
+              //SizedBox(width: 5),
+            //  SizedBox(width: 55),
 
             ],
           ),
+
         ],
       ),
     );
