@@ -42,11 +42,12 @@ class _FuelEntrySubmissionFormState extends State<FuelEntrySubmissionForm> {
 
   Future<void> formSubmit() async {
     if (_formKey.currentState!.validate()) {
-
-      print ("Berfore Image $_image");
-      print ("after Image $_imageAfter");
-      print ("vehicle Image $_imageVehicle"
-          "");
+      print("Berfore Image $_image");
+      print("after Image $_imageAfter");
+      print(
+        "vehicle Image $_imageVehicle"
+        "",
+      );
       final entries = FuelEntries(
         bill_no: _billNo.text.trim(),
         vehicle_type: _vehicleType.text.trim(),
@@ -55,9 +56,11 @@ class _FuelEntrySubmissionFormState extends State<FuelEntrySubmissionForm> {
         price_per_liter: _pricePerLiter.text.trim(),
         project: "Chakwal",
         vendor: _vendor.text.trim(),
-        beforeImage: _image ?? "",
-        afterImage: "",
-        vehcileImage:  "",
+        images: {
+          'before': _image ?? "",
+          'after': _imageAfter??"",
+          "vehicle": _imageVehicle??"",
+        },
       );
       setState(() {
         _fuelentries.add(entries);

@@ -243,142 +243,307 @@ class _DashboardScreenState extends State<DashboardScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Container(
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      fit: BoxFit.cover,
-                      image: AssetImage(
-                        "assets/images/complainsDashboard/complainsDashboard.png",
-                      ),
-                    ),
-                    border: Border.all(width: 1, color: Colors.black),
-                    borderRadius: BorderRadius.circular(18),
+                SizedBox(height: 15),
+
+                Row(
+                  children: [
+                    Icon(Icons.pin_drop_rounded, color:Colors.grey,),
+                    SizedBox(width: 8),
+                    Text("Chakwal", style: TextStyle(color: Colors.grey, fontWeight: FontWeight.bold,fontSize: 20),),
+
+                  ],
+                ),
+                SizedBox(height: 15),
+
+                GestureDetector(
+                  onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (_) => ComplaintsScreen()),
                   ),
-                  width: 400,
-                  height: 140,
-                  child: Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(28.0),
-                            child:RichText(text: TextSpan(
-                              text:   'Complains ($_total)',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 25,
-                                fontWeight: FontWeight.bold,
-
-                              ),
-                              // children:[
-                              //   TextSpan(
-                              //     text: '\nPending ',
-                              //     style: TextStyle(
-                              //       color: Colors.blue,
-                              //       fontSize: 17,
-                              //       fontWeight: FontWeight.bold,
-                              //     ),
-                              //   ),   TextSpan(
-                              //     text: ': $_total',
-                              //     style: TextStyle(
-                              //       color: Colors.blue,
-                              //       fontSize: 16,
-                              //       fontWeight: FontWeight.bold,
-                              //     ),
-                              //   ),
-                              // ]
-                            ))
-                          ),
-
-                          // CustomCard(title: "Hello"),
-                          // CustomCard(title: "Hello"),
-                          // CustomCard(title: "Hello"),
-                          // Expanded(
-                          //   child: Padding(
-                          //     padding: const EdgeInsets.all(8.0),
-                          //     child: Container(
-                          //       height: 140,
-                          //       decoration: BoxDecoration(
-                          //         boxShadow: [
-                          //           BoxShadow(
-                          //             color: Colors.black.withOpacity(0.3), // shadow color
-                          //             blurRadius: 8, // how soft the shadow is
-                          //             spreadRadius: 2, // how wide the shadow spreads
-                          //             offset: const Offset(2, 4), // (x, y) — move right & down
-                          //           ),
-                          //         ],
-                          //         color: Colors.yellow.shade400,
-                          //         border: Border.all(
-                          //             width: 1, color: Colors.black),
-                          //         borderRadius: BorderRadius.circular(13),
-                          //       ),
-                          //
-                          //       child: Text("Conatiner !"),
-                          //     ),
-                          //   ),
-                          // ),
-                          //
-                          //
-                          //    Expanded(
-                          //     child: Padding(
-                          //       padding: const EdgeInsets.all(8.0),
-                          //       child: Container(
-                          //         height: 160,
-                          //         decoration: BoxDecoration(
-                          //           border: Border.all(width: 1, color: Colors.black),
-                          //           borderRadius: BorderRadius.circular(13),
-                          //         ),
-                          //         child: Text("Conatiner !"),
-                          //       ),
-                          //     ),
-                          //   ),
-                          //
-                          // Expanded(
-                          //   child: Padding(
-                          //     padding: const EdgeInsets.all(8.0),
-                          //     child: Container(
-                          //       height: 160,
-                          //       decoration: BoxDecoration(
-                          //         border: Border.all(width: 1, color: Colors.black),
-                          //         borderRadius: BorderRadius.circular(13),
-                          //       ),
-                          //
-                          //       child: Text("Conatiner !"),
-                          //     ),
-                          //   ),
-                          // ),
-                        ],
+                  child: Container(
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        fit: BoxFit.cover,
+                        image: AssetImage(
+                          "assets/images/complainsDashboard/complainsDashboard.png",
+                        ),
                       ),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(0,0,10,0),
-                            child: Container(
-                              width: 120,
-                              height: 39,
-                              decoration: BoxDecoration(
+                      border: Border.all(width: 1, color: Colors.black),
+                      borderRadius: BorderRadius.circular(18),
+                    ),
+                    width: 400,
+                    height: 140,
+                    child: Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(28.0),
+                              child:RichText(text: TextSpan(
+                                text:   'Complains ($_total)',
+                                style: TextStyle(
                                   color: Colors.white,
-                                  borderRadius: BorderRadius.circular(14)
-                              ),
-                              child: Center(child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text("Check",style: TextStyle(
-                                      fontSize: 17,fontWeight: FontWeight.bold),
-                                  ),
-                                  Icon(Icons.arrow_forward_ios_rounded,color: Colors.black,size: 18,)
-                                ],
-                              )),
-                            ),
-                          )
+                                  fontSize: 25,
+                                  fontWeight: FontWeight.bold,
 
-                        ],
-                      )
-                    ],
+                                ),
+                                // children:[
+                                //   TextSpan(
+                                //     text: '\nPending ',
+                                //     style: TextStyle(
+                                //       color: Colors.blue,
+                                //       fontSize: 17,
+                                //       fontWeight: FontWeight.bold,
+                                //     ),
+                                //   ),   TextSpan(
+                                //     text: ': $_total',
+                                //     style: TextStyle(
+                                //       color: Colors.blue,
+                                //       fontSize: 16,
+                                //       fontWeight: FontWeight.bold,
+                                //     ),
+                                //   ),
+                                // ]
+                              ))
+                            ),
+
+                            // CustomCard(title: "Hello"),
+                            // CustomCard(title: "Hello"),
+                            // CustomCard(title: "Hello"),
+                            // Expanded(
+                            //   child: Padding(
+                            //     padding: const EdgeInsets.all(8.0),
+                            //     child: Container(
+                            //       height: 140,
+                            //       decoration: BoxDecoration(
+                            //         boxShadow: [
+                            //           BoxShadow(
+                            //             color: Colors.black.withOpacity(0.3), // shadow color
+                            //             blurRadius: 8, // how soft the shadow is
+                            //             spreadRadius: 2, // how wide the shadow spreads
+                            //             offset: const Offset(2, 4), // (x, y) — move right & down
+                            //           ),
+                            //         ],
+                            //         color: Colors.yellow.shade400,
+                            //         border: Border.all(
+                            //             width: 1, color: Colors.black),
+                            //         borderRadius: BorderRadius.circular(13),
+                            //       ),
+                            //
+                            //       child: Text("Conatiner !"),
+                            //     ),
+                            //   ),
+                            // ),
+                            //
+                            //
+                            //    Expanded(
+                            //     child: Padding(
+                            //       padding: const EdgeInsets.all(8.0),
+                            //       child: Container(
+                            //         height: 160,
+                            //         decoration: BoxDecoration(
+                            //           border: Border.all(width: 1, color: Colors.black),
+                            //           borderRadius: BorderRadius.circular(13),
+                            //         ),
+                            //         child: Text("Conatiner !"),
+                            //       ),
+                            //     ),
+                            //   ),
+                            //
+                            // Expanded(
+                            //   child: Padding(
+                            //     padding: const EdgeInsets.all(8.0),
+                            //     child: Container(
+                            //       height: 160,
+                            //       decoration: BoxDecoration(
+                            //         border: Border.all(width: 1, color: Colors.black),
+                            //         borderRadius: BorderRadius.circular(13),
+                            //       ),
+                            //
+                            //       child: Text("Conatiner !"),
+                            //     ),
+                            //   ),
+                            // ),
+                          ],
+                        ),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(0,0,10,0),
+                              child: Container(
+                                width: 120,
+                                height: 39,
+                                decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(14)
+                                ),
+                                child: Center(child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text("Check",style: TextStyle(
+                                        fontSize: 17,fontWeight: FontWeight.bold),
+                                    ),
+                                    Icon(Icons.arrow_forward_ios_rounded,color: Colors.black,size: 18,)
+                                  ],
+                                )),
+                              ),
+                            )
+
+                          ],
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 20),
+                GestureDetector(
+                  onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => FuelEntrySubmissionForm(),
+                    ),
+                  ),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        fit: BoxFit.cover,
+                        image: AssetImage(
+                          "assets/images/complainsDashboard/complainsDashboard.png",
+                        ),
+                      ),
+                      border: Border.all(width: 1, color: Colors.black),
+                      borderRadius: BorderRadius.circular(18),
+                    ),
+                    width: 400,
+                    height: 140,
+                    child: Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                                padding: const EdgeInsets.all(28.0),
+                                child:RichText(text: TextSpan(
+                                  text:   'Add Fuels ',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 25,
+                                    fontWeight: FontWeight.bold,
+
+                                  ),
+                                  // children:[
+                                  //   TextSpan(
+                                  //     text: '\nPending ',
+                                  //     style: TextStyle(
+                                  //       color: Colors.blue,
+                                  //       fontSize: 17,
+                                  //       fontWeight: FontWeight.bold,
+                                  //     ),
+                                  //   ),   TextSpan(
+                                  //     text: ': $_total',
+                                  //     style: TextStyle(
+                                  //       color: Colors.blue,
+                                  //       fontSize: 16,
+                                  //       fontWeight: FontWeight.bold,
+                                  //     ),
+                                  //   ),
+                                  // ]
+                                ))
+                            ),
+
+                            // CustomCard(title: "Hello"),
+                            // CustomCard(title: "Hello"),
+                            // CustomCard(title: "Hello"),
+                            // Expanded(
+                            //   child: Padding(
+                            //     padding: const EdgeInsets.all(8.0),
+                            //     child: Container(
+                            //       height: 140,
+                            //       decoration: BoxDecoration(
+                            //         boxShadow: [
+                            //           BoxShadow(
+                            //             color: Colors.black.withOpacity(0.3), // shadow color
+                            //             blurRadius: 8, // how soft the shadow is
+                            //             spreadRadius: 2, // how wide the shadow spreads
+                            //             offset: const Offset(2, 4), // (x, y) — move right & down
+                            //           ),
+                            //         ],
+                            //         color: Colors.yellow.shade400,
+                            //         border: Border.all(
+                            //             width: 1, color: Colors.black),
+                            //         borderRadius: BorderRadius.circular(13),
+                            //       ),
+                            //
+                            //       child: Text("Conatiner !"),
+                            //     ),
+                            //   ),
+                            // ),
+                            //
+                            //
+                            //    Expanded(
+                            //     child: Padding(
+                            //       padding: const EdgeInsets.all(8.0),
+                            //       child: Container(
+                            //         height: 160,
+                            //         decoration: BoxDecoration(
+                            //           border: Border.all(width: 1, color: Colors.black),
+                            //           borderRadius: BorderRadius.circular(13),
+                            //         ),
+                            //         child: Text("Conatiner !"),
+                            //       ),
+                            //     ),
+                            //   ),
+                            //
+                            // Expanded(
+                            //   child: Padding(
+                            //     padding: const EdgeInsets.all(8.0),
+                            //     child: Container(
+                            //       height: 160,
+                            //       decoration: BoxDecoration(
+                            //         border: Border.all(width: 1, color: Colors.black),
+                            //         borderRadius: BorderRadius.circular(13),
+                            //       ),
+                            //
+                            //       child: Text("Conatiner !"),
+                            //     ),
+                            //   ),
+                            // ),
+                          ],
+                        ),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(0,0,10,0),
+                              child: Container(
+                                width: 120,
+                                height: 39,
+                                decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(14)
+                                ),
+                                child: Center(child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text("Add",style: TextStyle(
+                                        fontSize: 17,fontWeight: FontWeight.bold),
+                                    ),
+                                    Icon(Icons.arrow_forward_ios_rounded,color: Colors.black,size: 18,)
+                                  ],
+                                )),
+                              ),
+                            )
+
+                          ],
+                        )
+                      ],
+                    ),
                   ),
                 ),
                 const SizedBox(height: 20),
@@ -414,29 +579,26 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 20),
-                _buildButton(
-                  context,
-                  icon: Icons.list,
-                  text: "View Complaints",
-                  color: Colors.cyan.shade50,
-                  onTap: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (_) => ComplaintsScreen()),
-                  ),
-                ),
+                // _buildButton(
+                //   context,
+                //   icon: Icons.list,
+                //   text: "View Complaints",
+                //   color: Colors.cyan.shade50,
+                //
+                // ),
                 const SizedBox(height: 20),
-                _buildButton(
-                  context,
-                  icon: Icons.add_circle,
-                  text: "Add Fueling Reports",
-                  color: Colors.cyan.shade100,
-                  onTap: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (_) => FuelEntrySubmissionForm(),
-                    ),
-                  ),
-                ),
+                // _buildButton(
+                //   context,
+                //   icon: Icons.add_circle,
+                //   text: "Add Fueling Reports",
+                //   color: Colors.cyan.shade100,
+                //   onTap: () => Navigator.push(
+                //     context,
+                //     MaterialPageRoute(
+                //       builder: (_) => FuelEntrySubmissionForm(),
+                //     ),
+                //   ),
+                // ),
               ],
             ),
           ),

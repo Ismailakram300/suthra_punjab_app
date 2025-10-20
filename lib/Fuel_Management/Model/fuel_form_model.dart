@@ -7,10 +7,7 @@ class FuelEntries {
   final String project;
   final String vendor;
   final String timestamp;
-  final String beforeImage;
-  final String afterImage;
-  final String vehcileImage;
-
+ final Map<String, String> images;
   FuelEntries({
     required this.bill_no,
     required this.vehicle_type,
@@ -19,9 +16,7 @@ class FuelEntries {
     required this.price_per_liter,
     required this.project,
     required this.vendor,
-    required this.beforeImage,
-    required this.afterImage,
-    required this.vehcileImage,
+required this.images,
     String? timestamp,
   }) : timestamp = timestamp ?? DateTime.now().toIso8601String();
   Map<String, dynamic> toMap() {
@@ -34,9 +29,11 @@ class FuelEntries {
       'PROJECT': project,
       'Vendor': vendor,
       'timestamp': timestamp,
-      'beforeImage': beforeImage,
-      'afterImage': afterImage,
-      'vehcileImage': vehcileImage,
+      'images': {
+        'before': images['before'],
+        'after': images['after'],
+        'vehicle': images['vehicle'],
+      },
     };
   }
 
@@ -49,9 +46,10 @@ class FuelEntries {
       price_per_liter: map["price_per_liter"],
       project: map["project"],
       vendor: map["vendor"],
-      beforeImage: map['beforeImage'],
-      afterImage: map['afterImage'],
-      vehcileImage: map['vehcileImage'],
+        images: Map<String, String>.from(map['images'] ?? {})
+      // beforeImage: map['beforeImage'],
+      // afterImage: map['afterImage'],
+      // vehcileImage: map['vehcileImage'],
     );
   }
 }

@@ -1,5 +1,6 @@
 // complaint_details_screen.dart
 import 'dart:convert';
+import 'package:figma_practice_project/constants/appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
@@ -285,10 +286,7 @@ class _ComplaintDetailsScreenState extends State<ComplaintDetailsScreen> {
     }
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Complaint Details'),
-        backgroundColor: Colors.blue,
-      ),
+      appBar: CustomContainerAppBar(title: "Complaint Details"),
       body: _isLoading
           ? const Center(child: CircularProgressIndicator())
           : ListView(

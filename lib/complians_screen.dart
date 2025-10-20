@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:figma_practice_project/Services/complaints_services.dart';
+import 'package:figma_practice_project/constants/appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -55,28 +56,22 @@ class _ComplaintsScreenState extends State<ComplaintsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Assigned Complaints"),
-        backgroundColor: Colors.blue,
-        elevation: 2,
-        actions: [
-          PopupMenuButton<String>(
-            onSelected: _applyFilter,
-            itemBuilder: (context) => [
-              const PopupMenuItem(value: "All", child: Text("All")),
-              const PopupMenuItem(value: "pending", child: Text("Pending")),
-              const PopupMenuItem(value: "resolved", child: Text("Resolved")),
-            ],
-            icon: const Icon(Icons.filter_alt),
-          ),
-        ],
-      ),
+      appBar: CustomContainerAppBar(title: "Complaints"),
       body: _isLoading
           ? const Center(child: CircularProgressIndicator())
           : _complaints.isEmpty
           ? const Center(child: Text("No complaints assigned to you"))
           : Column(
               children: [
+                PopupMenuButton<String>(
+                  onSelected: _applyFilter,
+                  itemBuilder: (context) => [
+                    const PopupMenuItem(value: "All", child: Text("All")),
+                    const PopupMenuItem(value: "pending", child: Text("Pending")),
+                    const PopupMenuItem(value: "resolved", child: Text("Resolved")),
+                  ],
+                  icon: const Icon(Icons.filter_alt),
+                ),
                 Expanded(
                   child: ListView.builder(
                     itemCount: _filteredComplaints.length,
