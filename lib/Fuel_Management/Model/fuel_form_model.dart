@@ -7,7 +7,7 @@ class FuelEntries {
   final String project;
   final String vendor;
   final String timestamp;
- final Map<String, String> images;
+ final Map<String, dynamic> images;
   FuelEntries({
     required this.bill_no,
     required this.vehicle_type,
@@ -29,11 +29,7 @@ required this.images,
       'PROJECT': project,
       'Vendor': vendor,
       'timestamp': timestamp,
-      'images': {
-        'before': images['before'],
-        'after': images['after'],
-        'vehicle': images['vehicle'],
-      },
+      'images': images,
     };
   }
 
