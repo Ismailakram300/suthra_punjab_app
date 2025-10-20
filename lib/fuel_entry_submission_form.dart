@@ -8,6 +8,7 @@ import 'package:figma_practice_project/Fuel_Management/Model/fuel_form_model.dar
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 
 class FuelEntrySubmissionForm extends StatefulWidget {
@@ -19,22 +20,43 @@ class FuelEntrySubmissionForm extends StatefulWidget {
 }
 
 class _FuelEntrySubmissionFormState extends State<FuelEntrySubmissionForm> {
-  String? _image;
-  String? _imageAfter;
-  String? _imageVehicle;
+  File? _image;
+  File? _imageAfter;
+  File? _imageVehicle;
   final ImagePicker _pickImage = ImagePicker();
+
+  Future<String?> uploadImageToCloudinary(File imageFile) async{
+    final cloudName="dqzjojsmh";
+    final uploadPreset="fuel_entries";
+    final url = Uri.parse("https://api.cloudinary.com/v1_1/$cloudName/image/upload");
+    var request = http.MultipartRequest('POST', url)
+      ..fields['upload_preset'] = uploadPreset
+      ..files.add(await http.MultipartFile.fromPath('file', imageFile.path));
+    final response = await request.send();
+
+    if (response.statusCode == 200) {
+      final resData = await response.stream.bytesToString();
+      final jsonData = json.decode(resData);
+      return jsonData['secure_url']; // ✅ Cloudinary public image URL
+    } else {
+      print('❌ Upload failed: ${response.statusCode}');
+      return null;
+    }
+  }
+
+
+
   Future<void> _pickedImage(String type) async {
     final XFile? image = await _pickImage.pickImage(source: ImageSource.camera);
     if (image != null) {
-      final byte = await File(image.path).readAsBytes();
-      final base64String = base64Encode(byte);
+
       setState(() {
         if (type == "before") {
-          _image = base64String;
+          _image = File(image.path);
         } else if (type == "after") {
-          _imageAfter = base64String;
+          _imageAfter = File(image.path);
         } else {
-          _imageVehicle = base64String;
+          _imageVehicle = File(image.path);
         }
       });
     }
@@ -48,6 +70,11 @@ class _FuelEntrySubmissionFormState extends State<FuelEntrySubmissionForm> {
         "vehicle Image $_imageVehicle"
         "",
       );
+      final beforeUrl = await uploadImageToCloudinary(_image!);
+      final afterUrl = await uploadImageToCloudinary(_imageAfter!);
+      final vehicleUrl = await uploadImageToCloudinary(_imageVehicle!);
+
+
       final entries = FuelEntries(
         bill_no: _billNo.text.trim(),
         vehicle_type: _vehicleType.text.trim(),
@@ -57,9 +84,9 @@ class _FuelEntrySubmissionFormState extends State<FuelEntrySubmissionForm> {
         project: "Chakwal",
         vendor: _vendor.text.trim(),
         images: {
-          'before': _image ?? "",
-          'after': _imageAfter??"",
-          "vehicle": _imageVehicle??"",
+          'before': beforeUrl ,
+          'after': afterUrl,
+          "vehicle": vehicleUrl,
         },
       );
       setState(() {
@@ -524,7 +551,7 @@ class _FuelEntrySubmissionFormState extends State<FuelEntrySubmissionForm> {
 //   // 🔹 Image Box Widget
 Widget _buildImageBox({
   required String label,
-  required String? image,
+  required File? image,
   required VoidCallback onTap,
 }) {
   return GestureDetector(
@@ -554,7 +581,7 @@ Widget _buildImageBox({
               )
             : ClipRRect(
                 borderRadius: BorderRadius.circular(12),
-                child: Image.memory(base64Decode(image), fit: BoxFit.cover),
+                child: Image.file(image, fit: BoxFit.cover),
               ),
       ),
     ),
