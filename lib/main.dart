@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:ui';
+import 'package:cloudinary_url_gen/cloudinary.dart';
 import 'package:figma_practice_project/dashboard.dart';
 import 'package:figma_practice_project/login.dart';
 import 'package:figma_practice_project/models/user_model.dart';
@@ -50,11 +51,14 @@ Future<void> _checkPermissions() async {
     await Geolocator.openAppSettings();
   }
 }
+var cloudinary=Cloudinary.fromStringUrl('cloudinary://<913868916354798>:<iVxR1PgHl3VPQmB5dkqZXdOkvNA>@dqzjojsmh');
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await _checkPermissions();
+  cloudinary.config.urlConfig.secure = true;
+
 
   // ✅ Initialize Hive before accessing any box
   await Hive.initFlutter();
