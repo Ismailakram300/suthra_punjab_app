@@ -249,7 +249,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   children: [
                     Icon(Icons.pin_drop_rounded, color:Colors.grey,),
                     SizedBox(width: 8),
-                    Text("Chakwal", style: TextStyle(color: Colors.grey, fontWeight: FontWeight.bold,fontSize: 20),),
+                    Text("Chakwal" , style: TextStyle(color: Colors.grey, fontWeight: FontWeight.bold,fontSize: 20),),
 
                   ],
                 ),
